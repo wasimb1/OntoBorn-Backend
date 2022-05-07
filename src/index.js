@@ -21,7 +21,9 @@ mongoose.set("returnOriginal", false);
 //Bodyparser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin:'http://localhost:4200'
+}));
 //cookie parser
 app.use(cookieParser());
 // set directory for static files
@@ -36,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 //route setup
-// app.get("*", checkUser);
+app.get("*", checkUser);
 app.use("/users", userController);
 app.use("/sales", saleController);
 app.get("/", (req, res) => res.redirect("/sales"));

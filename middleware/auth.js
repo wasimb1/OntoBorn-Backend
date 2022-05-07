@@ -3,8 +3,14 @@ const User = require("../models/user");
 
 //verify token
 async function authToken(req, res, next) {
-  const token = req.cookies["x-auth"];
+  let token = req.cookies["x-auth"];
+  console.log(token);
+  if (token || token === undefined) {
+    console.log("token inside",req.headers.usertoken);
+    token = req.headers.usertoken;
+  }
   try {
+    console.log(token)
     if (!token) throw new Error();
     const decoded = jwt.verify(token, process.env.SECRECT_KEY);
     const user = await User.findOne({
@@ -19,7 +25,8 @@ async function authToken(req, res, next) {
   } catch (error) {
     res.locals.currentUser = null;
     console.log("Not authorized to access this resource");
-    res.redirect("/user/login");
+    res.send(error);
+    // res.redirect("/user/login");
   }
 }
 // See current user in templates

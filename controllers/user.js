@@ -73,7 +73,7 @@ router
         httpOnly: true,
         maxAge: 2 * 24 * 60 * 60 * 1000,
       });
-      res.send(verifiedUser);
+      res.send({ "userToken": token });
       // res.redirect("/");
     } catch (error) {
       console.log(error);

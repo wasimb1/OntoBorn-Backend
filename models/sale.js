@@ -23,11 +23,11 @@ const saleSchema = new mongoose.Schema({
     min: 0,
     required: true,
   },
-  // owner: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: false,
-  // },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Sale", saleSchema);

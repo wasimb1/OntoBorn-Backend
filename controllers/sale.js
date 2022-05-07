@@ -14,13 +14,14 @@ router
       res.status(500).send(error.message);
     }
   }) // Create a sale record
-  .post(async (req, res) => {
+  .post(authToken, async (req, res) => {
+    console.log("in auth Header", req.headers.usertoken);
     const { error } = saleValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     // Create new sale along with its owner
     const newSale = {
       ...req.body,
-      // owner: req.user._id, //owner
+      owner: req.user._id, //owner
     };
     try {
       const sale = await Sale.create(newSale);
